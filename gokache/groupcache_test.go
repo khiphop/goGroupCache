@@ -28,7 +28,7 @@ type IT struct {
 }
 
 func TestGetter(t *testing.T) {
-	baseUrl := "http://192.168.2.69:8001"
+	baseUrl := "http://127.0.0.1:8001"
 	// SourceBacker type:interface arg:string return:[]byte
 	// cn: 实际使用中的Getter应该从数据库重新获取数据, 此处为了测试, 直接输出 []byte 类型
 	var f SourceBacker = BsFunc(func(key string) ([]byte, error) {
@@ -59,7 +59,7 @@ func fetchCode(res []byte) int64 {
 
 func TestGet(t *testing.T) {
 	//bsr := BackSourceRule{
-	//	url:   "http://192.168.2.69:8001",
+	//	url:   "http://127.0.0.1:8001",
 	//	field: "data.version",
 	//}
 	//
@@ -74,7 +74,7 @@ func TestGet(t *testing.T) {
 	// loadCounts 的作用记录从数据库重新加载数据的次数
 	loadCounts := make(map[string]int, len(db))
 
-	// NewGroup(name string, countLimit int64, onBackSource SourceBacker) *Group
+	// NewGroup(name string, capacity int64, onBackSource SourceBacker) *Group
 	// 创建一个命名空间为 scores 的, cache group; 空间大小为 2048字节; 并设置回调函数
 	gc := NewGroup("scores", 10000, BsFunc(
 		// cn: 回调函数(callback)，在缓存不存在时，调用这个函数，得到源数据

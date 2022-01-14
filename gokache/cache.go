@@ -6,9 +6,9 @@ import (
 )
 
 type cache struct {
-	mu         sync.Mutex
-	lru        *lru.Lru
-	countLimit int64
+	mu       sync.Mutex
+	lru      *lru.Lru
+	capacity int64
 }
 
 func (c *cache) set(key string, value ByteView) {
@@ -16,7 +16,7 @@ func (c *cache) set(key string, value ByteView) {
 	defer c.mu.Unlock()
 
 	if c.lru == nil {
-		c.lru = lru.InitLru(c.countLimit, 0, nil)
+		c.lru = lru.InitLru(c.capacity, 0, nil)
 	}
 
 	c.lru.Set(key, value)

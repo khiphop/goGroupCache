@@ -14,9 +14,12 @@ type Source struct {
 
 var (
 	selfPort = 7002
+	selfIp   = "127.0.0.1"
 )
 
 func main() {
+	gokache.HttpGet("http://127.0.0.1:8013")
+
 	gokache.NewGroup("user", 10000, gokache.BsFunc(func(key string) ([]byte, error) {
 		// return []byte(key), nil
 		rs := gokache.HttpGet("http://127.0.0.1:8013" + "?key=" + key)
@@ -30,33 +33,34 @@ func main() {
 		return r, nil
 	}))
 
-	nd := gokache.InitNode("127.0.0.1:" + string(selfPort))
+	nd := gokache.InitNode(selfIp + ":" + string(selfPort))
 
-	ginServer := gin.Default()
+	router := gin.Default()
+	router.SetTrustedProxies([]string{"127.0.0.1"})
 
-	ginServer.GET("/cache/:group/:key", func(ginC *gin.Context) {
+	router.GET("/cache/:group/:key", func(ginC *gin.Context) {
 		getHandler(nd, ginC.Param("group"), ginC.Param("key"), ginC, false)
 	})
 
-	ginServer.GET("/inner/:group/:key", func(ginC *gin.Context) {
+	router.GET("/inner/:group/:key", func(ginC *gin.Context) {
 		getHandler(nd, ginC.Param("group"), ginC.Param("key"), ginC, true)
 	})
 
-	ginServer.POST("/cache", func(ginC *gin.Context) {
+	router.POST("/cache", func(ginC *gin.Context) {
 		group := ginC.PostForm("group")
 		key := ginC.PostForm("key")
 		val := ginC.PostForm("val")
 		setHandler(nd, group, key, val, ginC, false)
 	})
 
-	ginServer.POST("/inner", func(ginC *gin.Context) {
+	router.POST("/inner", func(ginC *gin.Context) {
 		group := ginC.PostForm("group")
 		key := ginC.PostForm("key")
 		val := ginC.PostForm("val")
 		setHandler(nd, group, key, val, ginC, true)
 	})
 
-	ginServer.POST("/node", func(ginC *gin.Context) {
+	router.POST("/node", func(ginC *gin.Context) {
 		ip := ginC.PostForm("ip")
 		port := ginC.PostForm("port")
 
@@ -69,7 +73,7 @@ func main() {
 		})
 	})
 
-	ginServer.DELETE("/node", func(ginC *gin.Context) {
+	router.DELETE("/node", func(ginC *gin.Context) {
 		ip := ginC.PostForm("ip")
 		port := ginC.PostForm("port")
 
@@ -82,7 +86,7 @@ func main() {
 		})
 	})
 
-	ginServer.PUT("/data", func(ginC *gin.Context) {
+	router.PUT("/data", func(ginC *gin.Context) {
 		_ = gokache.BackupData()
 
 		ginC.JSON(200, gin.H{
@@ -92,7 +96,7 @@ func main() {
 		})
 	})
 
-	err := ginServer.Run(":" + strconv.Itoa(selfPort))
+	err := router.Run(":" + strconv.Itoa(selfPort))
 	if err != nil {
 		return
 	}

@@ -8,7 +8,7 @@ import (
 
 // Lru an LRU cache.
 type Lru struct {
-	maxCount     int64
+	capacity     int64
 	currentCount int64
 	Ll           *list.List
 	cache        map[string]*list.Element
@@ -37,9 +37,9 @@ func (lru *Lru) LlLen() int {
 }
 
 // InitLru Init InitLru is the Constructor of Cache
-func InitLru(maxCount int64, ttl int64, remover func(string, Value)) *Lru {
+func InitLru(c int64, ttl int64, remover func(string, Value)) *Lru {
 	return &Lru{
-		maxCount: maxCount,
+		capacity: c,
 		Ll:       list.New(),
 		ttl:      ttl,
 		cache:    make(map[string]*list.Element),
@@ -75,7 +75,7 @@ func (lru *Lru) getExp() int64 {
 }
 
 func (lru *Lru) checkSize() {
-	for lru.maxCount > 0 && lru.currentCount > lru.maxCount {
+	for lru.capacity > 0 && lru.currentCount > lru.capacity {
 		lru.lruRemove()
 	}
 }

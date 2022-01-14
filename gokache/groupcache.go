@@ -40,7 +40,7 @@ var (
 )
 
 // NewGroup create a new instance of Group
-func NewGroup(name string, countLimit int64, sourceBacker SourceBacker) *Group {
+func NewGroup(name string, c int64, sourceBacker SourceBacker) *Group {
 	if sourceBacker == nil {
 		panic("nil SourceBacker")
 	}
@@ -51,7 +51,7 @@ func NewGroup(name string, countLimit int64, sourceBacker SourceBacker) *Group {
 	g := &Group{
 		name:         name,
 		onBackSource: sourceBacker,
-		coreCache:    cache{countLimit: countLimit},
+		coreCache:    cache{capacity: c},
 		backSourceCd: make(map[string]int64),
 	}
 
