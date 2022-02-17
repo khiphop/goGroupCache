@@ -124,7 +124,7 @@ func (lru *Lru) Get(key string) (value Value, ok bool) {
 }
 
 func (lru *Lru) onExpire(pa *list.Element) {
-	fmt.Println("onExpire")
+	fmt.Println("Trigger onExpire")
 	lru.Ll.Remove(pa)
 
 	kv := pa.Value.(*KvMap)
