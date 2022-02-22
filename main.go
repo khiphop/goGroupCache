@@ -38,6 +38,7 @@ func main() {
 	router := gin.Default()
 	router.SetTrustedProxies([]string{"127.0.0.1"})
 
+	// api handler
 	router.GET("/cache/:group/:key", func(ginC *gin.Context) {
 		getHandler(nd, ginC.Param("group"), ginC.Param("key"), ginC, false)
 	})

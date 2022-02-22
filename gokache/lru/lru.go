@@ -81,7 +81,7 @@ func (lru *Lru) checkSize() {
 }
 
 func (lru *Lru) lruRemove() {
-	fmt.Println("trigger lruRemove")
+	fmt.Println("Trigger lruRemove")
 
 	if lru.LlLen() == 0 {
 		return

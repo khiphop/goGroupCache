@@ -84,11 +84,11 @@ func (nd *NodeDispatch) GetHandler(group string, key string, inner bool) ([]byte
 	var b []byte
 
 	if node, ok := nd.ChooseNode(key); !ok && !inner {
-		fmt.Println("trigger InnerGet")
+		fmt.Println("Trigger InnerGet")
 
 		b = InnerGet(node, group, key)
 	} else {
-		fmt.Println("trigger LocalGet")
+		fmt.Println("Trigger LocalGet")
 
 		gc := GetGroup(group)
 		rs, _ := gc.Get(key)
@@ -100,10 +100,10 @@ func (nd *NodeDispatch) GetHandler(group string, key string, inner bool) ([]byte
 
 func (nd *NodeDispatch) SetHandler(group string, key string, val string, inner bool) error {
 	if node, ok := nd.ChooseNode(key); !ok && !inner {
-		fmt.Println("trigger InnerGet")
+		fmt.Println("Trigger InnerGet")
 		InnerSet(node, group, key, val)
 	} else {
-		fmt.Println("trigger LocalSet")
+		fmt.Println("Trigger LocalSet")
 
 		gc := GetGroup(group)
 		_ = gc.Set(key, val)
