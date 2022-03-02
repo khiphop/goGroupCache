@@ -11,6 +11,8 @@ func TestHashing(t *testing.T) {
 	// Given the above hashHandler function, this will give vNodeC with "hashHandlers":
 	conHash.Add("127.0.0.1:7000", "127.0.0.1:7001", "127.0.0.1:7002")
 	fmt.Println(conHash.HashMap)
+
+	// cn: 显示 key:name 应该归属于哪个节点
 	fmt.Println(conHash.Get("name"))
 
 	conHash.Add("127.0.0.1:7003")
