@@ -38,7 +38,10 @@ func (nd *NodeDispatch) cmd() {
 		}
 
 		if v == "-dr" {
-			DataRestore(nd)
+			err := DataRestore(nd)
+			if err != nil {
+				return
+			}
 		}
 	}
 }

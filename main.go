@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-type Source struct {
+type SourceRes struct {
 	Data string `json:"data"`
 }
 
@@ -36,7 +36,7 @@ func main() {
 	nd := gokache.InitNode(selfIp + ":" + string(selfPort))
 
 	router := gin.Default()
-	router.SetTrustedProxies([]string{"127.0.0.1"})
+	router.SetTrustedProxies([]string{selfIp})
 
 	// api handler
 	router.GET("/cache/:group/:key", func(ginC *gin.Context) {
@@ -124,13 +124,13 @@ func setHandler(nd *gokache.NodeDispatch, group string, key string, val string, 
 }
 
 func fetchData(res []byte) []byte {
-	var tt Source
-	err := json.Unmarshal(res, &tt)
+	var sd SourceRes
+	err := json.Unmarshal(res, &sd)
 	if err != nil {
 		fmt.Println("json err:", err)
 	}
 
-	fmt.Println(tt.Data)
+	fmt.Println(sd.Data)
 
-	return []byte(tt.Data)
+	return []byte(sd.Data)
 }
