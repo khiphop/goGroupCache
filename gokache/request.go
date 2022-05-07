@@ -24,13 +24,13 @@ func InnerGet(node string, group string, key string) []byte {
 	u = "http://127.0.0.1:8011/"
 	retJson := HttpGet(u)
 
-	var j InnerResp
-	err := json.Unmarshal(retJson, &j)
+	var ir InnerResp
+	err := json.Unmarshal(retJson, &ir)
 	if err != nil {
 		fmt.Println("json err:", err)
 	}
 
-	return []byte(j.Data)
+	return []byte(ir.Data)
 }
 
 func InnerSet(node string, group string, key string, val string) []byte {
@@ -43,13 +43,13 @@ func InnerSet(node string, group string, key string, val string) []byte {
 
 	retJson := HttpPostForm(u, args)
 
-	var j InnerResp
-	err := json.Unmarshal(retJson, &j)
+	var ir InnerResp
+	err := json.Unmarshal(retJson, &ir)
 	if err != nil {
 		fmt.Println("json err:", err)
 	}
 
-	return []byte(j.Data)
+	return []byte(ir.Data)
 }
 
 func HttpGet(url string) []byte {
