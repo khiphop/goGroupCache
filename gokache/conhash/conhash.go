@@ -13,7 +13,7 @@ type Hash func(data []byte) uint32
 type Map struct {
 	hashHandler Hash
 	// virtual node's count
-	vNodeC int
+	virtualNodeC int
 	// hash ring
 	hashRing []int // Sorted
 	// this is map if node and his hashVal. key: node's hashVal, val: node's name
@@ -25,9 +25,9 @@ type Map struct {
 func InitConHash(vnc int, fn Hash) *Map {
 	// cn: 此时还未定义哈希环, 长度为0, 需要通过Add函数添加keys
 	m := &Map{
-		vNodeC:      vnc,
-		hashHandler: fn,
-		HashMap:     make(map[int]string),
+		virtualNodeC: vnc,
+		hashHandler:  fn,
+		HashMap:      make(map[int]string),
 	}
 
 	if m.hashHandler == nil {
@@ -40,7 +40,7 @@ func InitConHash(vnc int, fn Hash) *Map {
 // Add adds some hashRing to the hashHandler.
 func (m *Map) Add(keys ...string) {
 	for _, key := range keys {
-		for i := 0; i < m.vNodeC; i++ {
+		for i := 0; i < m.virtualNodeC; i++ {
 			hashVal := int(m.hashHandler([]byte(key + "-" + strconv.Itoa(i))))
 			m.hashRing = append(m.hashRing, hashVal)
 			m.HashMap[hashVal] = key
@@ -53,7 +53,7 @@ func (m *Map) Add(keys ...string) {
 
 func (m *Map) Del(keys ...string) {
 	for _, key := range keys {
-		for i := 0; i < m.vNodeC; i++ {
+		for i := 0; i < m.virtualNodeC; i++ {
 			hashVal := int(m.hashHandler([]byte(key + "-" + strconv.Itoa(i))))
 
 			// del element from slice

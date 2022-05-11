@@ -15,14 +15,14 @@ type NodeDispatch struct {
 }
 
 var (
-	vNodeC = 5
+	virtualNodeC = 5
 )
 
 // InitNode Set updates the pool's list of peers.
 func InitNode(peer string) *NodeDispatch {
 	nd := &NodeDispatch{
 		self:  peer,
-		Peers: conhash.InitConHash(vNodeC, nil),
+		Peers: conhash.InitConHash(virtualNodeC, nil),
 	}
 
 	nd.Peers.Add(peer)
