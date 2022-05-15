@@ -48,7 +48,7 @@ func InitLru(c int64, ttl int64, remover func(string, Value)) *Lru {
 }
 
 func (lru *Lru) Set(key string, val Value) {
-	newExp := lru.getExp()
+	newExp := lru.getExpTime()
 
 	if pa, ok := lru.cache[key]; ok {
 		lru.Ll.MoveToFront(pa)
@@ -66,7 +66,7 @@ func (lru *Lru) Set(key string, val Value) {
 	lru.checkSize()
 }
 
-func (lru *Lru) getExp() int64 {
+func (lru *Lru) getExpTime() int64 {
 	if lru.ttl == 0 {
 		return 0
 	}
