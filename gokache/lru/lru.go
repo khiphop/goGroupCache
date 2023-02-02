@@ -6,14 +6,14 @@ import (
 	"time"
 )
 
-// Lru an LRU cache.
+// Lru :an LRU cache
 type Lru struct {
 	capacity     int64
 	currentCount int64
 	Ll           *list.List
 	cache        map[string]*list.Element
 	ttl          int64
-	// [optional] executed when an kvMap is purged.
+	// [optional] executed when an kvMap is purged
 	OnRemove func(key string, value Value)
 }
 
