@@ -24,7 +24,7 @@ type SourceBacker interface {
 // A BsFunc implements SourceBacker with a function.
 type BsFunc func(key string) ([]byte, error)
 
-// Request implements SourceBacker interface function
+// Request :implements SourceBacker interface function
 // cn: 该 method 属于 BsFunc 类型对象中的方法
 // cn: 因为该 method 实现了 GET 方法, 它自动属于 SourceBacker 类型
 func (fun BsFunc) Request(key string) ([]byte, error) {
@@ -39,7 +39,7 @@ var (
 	backSourceCdS = 3
 )
 
-// NewGroup create a new instance of Group
+// NewGroup :create a new instance of Group
 func NewGroup(name string, c int64, sourceBacker SourceBacker) *Group {
 	if sourceBacker == nil {
 		panic("nil SourceBacker")
@@ -60,7 +60,7 @@ func NewGroup(name string, c int64, sourceBacker SourceBacker) *Group {
 	return g
 }
 
-// RegisterPeers registers a PeerPicker for choosing remote peer
+// RegisterPeers :registers a PeerPicker for choosing remote peer
 func (g *Group) RegisterPeers(peers PeerPicker) {
 	if g.peers != nil {
 		panic("RegisterPeerPicker called more than once")
@@ -69,7 +69,7 @@ func (g *Group) RegisterPeers(peers PeerPicker) {
 	g.peers = peers
 }
 
-// GetGroup returns the named group previously created with NewGroup, or nil if there's no such group.
+// GetGroup :returns the named group previously created with NewGroup, or nil if there's no such group.
 func GetGroup(name string) *Group {
 	mu.RLock()
 	defer mu.RUnlock()
