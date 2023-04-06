@@ -122,6 +122,7 @@ func (g *Group) backSource(key string) (value ByteView, err error) {
 	fmt.Println("run load")
 
 	// cn: 从数据源获取数据设置到缓存中, 依赖回调函数 onBackSource
+	// do back source with callback function
 	bytes, err := g.onBackSource.Request(key)
 	if err != nil {
 		return ByteView{}, err
