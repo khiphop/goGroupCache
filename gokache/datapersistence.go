@@ -19,6 +19,7 @@ var (
 	dataFile = "./runtime/data.txt"
 )
 
+// DataRestore :set cache from file
 func DataRestore(nd *NodeDispatch) error {
 	fi, err := os.Open(dataFile)
 
