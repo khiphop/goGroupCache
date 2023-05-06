@@ -6,10 +6,10 @@ import (
 	"strconv"
 )
 
-// Hash maps bytes to uint32
+// Hash :maps bytes to uint32
 type Hash func(data []byte) uint32
 
-// Map contains all hashed hashRing
+// Map :contains all hashed hashRing
 type Map struct {
 	hashHandler Hash
 	// virtual node's count
@@ -20,7 +20,7 @@ type Map struct {
 	HashMap map[int]string
 }
 
-// InitConHash creates a Map instance
+// InitConHash :creates a Map instance
 // cn: 构造函数 InitConHash() 允许自定义虚拟节点倍数和 Hash 函数
 func InitConHash(vnc int, fn Hash) *Map {
 	// cn: 此时还未定义哈希环, 长度为0, 需要通过Add函数添加keys
