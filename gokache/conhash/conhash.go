@@ -37,7 +37,7 @@ func InitConHash(vnc int, fn Hash) *Map {
 	return m
 }
 
-// Add adds some hashRing to the hashHandler.
+// Add :adds some hashRing to the hashHandler.
 func (m *Map) Add(keys ...string) {
 	for _, key := range keys {
 		for i := 0; i < m.virtualNodeC; i++ {
