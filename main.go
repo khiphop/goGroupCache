@@ -18,19 +18,21 @@ var (
 )
 
 func main() {
+	backSourceUrl := "http://127.0.0.1:8013"
+
 	// unknown bug
 	// 第一次请求会特别慢, 预先请求一次
-	gokache.HttpGet("http://127.0.0.1:8013")
+	gokache.HttpGet(backSourceUrl)
 
 	gokache.NewGroup("user", 10000, gokache.BsFunc(func(key string) ([]byte, error) {
 		// return []byte(key), nil
-		rs := gokache.HttpGet("http://127.0.0.1:8013" + "?key=" + key)
+		rs := gokache.HttpGet(backSourceUrl + "?key=" + key)
 		r := fetchData(rs)
 		return r, nil
 	}))
 	gokache.NewGroup("club", 10000, gokache.BsFunc(func(key string) ([]byte, error) {
 		// return []byte(key), nil
-		rs := gokache.HttpGet("http://127.0.0.1:8013" + "?key=" + key)
+		rs := gokache.HttpGet(backSourceUrl + "?key=" + key)
 		r := fetchData(rs)
 		return r, nil
 	}))
