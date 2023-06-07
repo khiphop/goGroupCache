@@ -21,6 +21,7 @@ func InnerGet(node string, group string, key string) []byte {
 		url.QueryEscape(key),
 	)
 
+	// temporary
 	u = "http://127.0.0.1:8011/"
 	retJson := HttpGet(u)
 
