@@ -13,6 +13,10 @@ type InnerResp struct {
 	Data string `json:"data"`
 }
 
+var (
+	tempUrl = "http://127.0.0.1:8011/"
+)
+
 func InnerGet(node string, group string, key string) []byte {
 	u := fmt.Sprintf(
 		"%v/%v/%v",
@@ -22,7 +26,7 @@ func InnerGet(node string, group string, key string) []byte {
 	)
 
 	// temporary
-	u = "http://127.0.0.1:8011/"
+	//u = tempUrl
 	retJson := HttpGet(u)
 
 	var ir InnerResp
