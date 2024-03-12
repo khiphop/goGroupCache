@@ -27,13 +27,13 @@ func main() {
 	gokache.NewGroup("user", 10000, gokache.BsFunc(func(key string) ([]byte, error) {
 		// return []byte(key), nil
 		rs := gokache.HttpGet(backSourceUrl + "?key=" + key)
-		r := fetchData(rs)
+		r := fetchDataLayer(rs)
 		return r, nil
 	}))
 	gokache.NewGroup("club", 10000, gokache.BsFunc(func(key string) ([]byte, error) {
 		// return []byte(key), nil
 		rs := gokache.HttpGet(backSourceUrl + "?key=" + key)
-		r := fetchData(rs)
+		r := fetchDataLayer(rs)
 		return r, nil
 	}))
 
@@ -127,7 +127,7 @@ func setHandler(nd *gokache.NodeDispatch, group string, key string, val string, 
 	})
 }
 
-func fetchData(res []byte) []byte {
+func fetchDataLayer(res []byte) []byte {
 	var sd SourceRes
 	err := json.Unmarshal(res, &sd)
 	if err != nil {
