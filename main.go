@@ -13,13 +13,12 @@ type SourceRes struct {
 }
 
 var (
-	selfPort = 7002
-	selfIp   = "127.0.0.1"
+	selfPort      = 7002
+	selfIp        = "127.0.0.1"
+	backSourceUrl = "http://127.0.0.1:8013"
 )
 
 func main() {
-	backSourceUrl := "http://127.0.0.1:8013"
-
 	// unknown bug
 	// 第一次请求会特别慢, 预先请求一次
 	gokache.HttpGet(backSourceUrl)
