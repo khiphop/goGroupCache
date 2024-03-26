@@ -72,7 +72,7 @@ func HttpGet(url string) []byte {
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 
-	fmt.Println("body" + string(body))
+	fmt.Println("HttpGetRespBody" + string(body))
 	return body
 }
 
