@@ -75,7 +75,7 @@ func (lru *Lru) getExpTime() int64 {
 }
 
 func (lru *Lru) checkSize() {
-	for lru.capacity > 0 && lru.currentCount > lru.capacity {
+	for lru.capacity > 0 && (lru.currentCount > lru.capacity) {
 		lru.lruRemove()
 	}
 }
