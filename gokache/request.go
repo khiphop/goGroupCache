@@ -76,8 +76,8 @@ func HttpGet(url string) []byte {
 	return body
 }
 
-func HttpPostForm(api string, args url.Values) []byte {
-	resp, err := http.PostForm(api, args)
+func HttpPostForm(apiUrl string, args url.Values) []byte {
+	resp, err := http.PostForm(apiUrl, args)
 	if err != nil {
 		fmt.Println("error")
 		return []byte("")
