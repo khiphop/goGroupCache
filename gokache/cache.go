@@ -39,9 +39,9 @@ func (c *cache) get(key string) (value ByteView, ok bool) {
 		return
 	}
 
-	if v, ok := c.lru.Get(key); ok {
-		// return "val,true" if v belong to ByteView, otherwise, return ",false"
-		return v.(ByteView), ok
+	if val, ok := c.lru.Get(key); ok {
+		// return "val,true" if val belong to ByteView, otherwise, return ",false"
+		return val.(ByteView), ok
 	}
 
 	return
