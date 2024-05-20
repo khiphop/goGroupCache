@@ -1,7 +1,7 @@
 package gokache
 
 // A ByteView holds an immutable view of bytes.
-// cn: 选择 byte 类型是为了能够支持任意的数据类型的存储，例如字符串、图片等。
+// 选择 byte 类型是为了能够支持任意的数据类型的存储，例如字符串、图片等。
 type ByteView struct {
 	b []byte
 }
