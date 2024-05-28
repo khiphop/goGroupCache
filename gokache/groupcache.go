@@ -25,8 +25,8 @@ type SourceBacker interface {
 type BsFunc func(key string) ([]byte, error)
 
 // Request :implements SourceBacker interface function
-// cn: 该 method 属于 BsFunc 类型对象中的方法
-// cn: 因为该 method 实现了 GET 方法, 它自动属于 SourceBacker 类型
+// 该 method 属于 BsFunc 类型对象中的方法
+// 因为该 method 实现了 GET 方法, 它自动属于 SourceBacker 类型
 func (fun BsFunc) Request(key string) ([]byte, error) {
 	// cn: 此时还未定义
 	// cn: 将 key 转换为 BsFunc 类型
