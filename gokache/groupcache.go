@@ -34,9 +34,9 @@ func (fun BsFunc) Request(key string) ([]byte, error) {
 }
 
 var (
-	mu            sync.RWMutex
-	groups        = make(map[string]*Group)
-	backSourceCdS = 3
+	mu              sync.RWMutex
+	groups          = make(map[string]*Group)
+	backSourceLimit = 3
 )
 
 // NewGroup :create a new instance of Group
@@ -131,7 +131,7 @@ func (g *Group) backSource(key string) (value ByteView, err error) {
 	value = ByteView{b: cloneBytes(bytes)}
 
 	g.coreCache.set(key, value)
-	g.backSourceCd[key] = time.Now().Unix() + int64(backSourceCdS)
+	g.backSourceCd[key] = time.Now().Unix() + int64(backSourceLimit)
 
 	return value, nil
 }
