@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-type SourceRes struct {
+type SourceResp struct {
 	Data string `json:"data"`
 }
 
@@ -127,7 +127,7 @@ func setHandler(nd *gokache.NodeDispatch, group string, key string, val string, 
 }
 
 func fetchDataLayer(res []byte) []byte {
-	var sd SourceRes
+	var sd SourceResp
 	err := json.Unmarshal(res, &sd)
 	if err != nil {
 		fmt.Println("json err:", err)
